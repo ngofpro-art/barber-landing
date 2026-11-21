@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Барбершоп «Топор» — мужские стрижки в Москве</title>
+  <meta name="description" content="Мужской барбершоп «Топор» в Москве. Стрижка, борода, опасная бритва. Онлайн-запись 24/7." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --bg-soft: #171717;
+      --card: #1d1d1d;
+      --card-hover: #242424;
+      --text: #f5f5f5;
+      --muted: #a8a8a8;
+      --accent: #c47a3d;
+      --accent-hover: #d98b4a;
+      --border: #2c2c2c;
+      --radius: 16px;
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button, input, select { font: inherit; }
+
+    .container {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+    }
+
+    .section { padding: 72px 0; }
+    .section-title {
+      font-size: clamp(26px, 4vw, 38px);
+      line-height: 1.2;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .section-subtitle {
+      color: var(--muted);
+      max-width: 620px;
+      margin-bottom: 36px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 24px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: var(--accent);
+      color: #111;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.25s ease;
+      white-space: nowrap;
+    }
+    .btn:hover { background: var(--accent-hover); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: transparent; }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(15, 15, 15, 0.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .logo {
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      font-size: 20px;
+    }
+    .logo span { color: var(--accent); }
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .nav a:hover { color: var(--text); }
+    .header .btn { padding: 11px 18px; font-size: 14px; }
+
+    /* Hero */
+    .hero {
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(15,15,15,0.92) 0%, rgba(15,15,15,0.68) 48%, rgba(15,15,15,0.35) 100%),
+        url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    }
+    .hero-content { max-width: 660px; padding: 110px 0; }
+    .eyebrow {
+      display: inline-block;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: clamp(42px, 8vw, 78px);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      margin-bottom: 22px;
+    }
+    .hero p {
+      color: #d0d0d0;
+      font-size: clamp(16px, 2vw, 19px);
+      max-width: 520px;
+      margin-bottom: 32px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* Services */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px;
+      transition: 0.25s ease;
+    }
+    .card:hover { background: var(--card-hover); transform: translateY(-4px); border-color: #3a3a3a; }
+    .service-card h3 { font-size: 18px; margin-bottom: 8px; }
+    .service-card .price {
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 24px;
+      margin-top: 18px;
+    }
+    .service-card p { color: var(--muted); font-size: 14px; }
+
+    /* Advantages */
+    .advantages { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+    .advantage {
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, #1b1b1b, #151515);
+    }
+    .advantage-icon {
+      width: 46px; height: 46px;
+      display: grid; place-items: center;
+      border-radius: 14px;
+      background: rgba(196, 122, 61, 0.13);
+      color: var(--accent);
+      font-size: 22px;
+      margin-bottom: 18px;
+    }
+    .advantage h3 { font-size: 16px; margin-bottom: 6px; }
+    .advantage p { color: var(--muted); font-size: 14px; }
+
+    /* Masters */
+    .masters { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+    .master {
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--border);
+    }
+    .master img { width: 100%; height: 290px; object-fit: cover; filter: grayscale(20%); }
+    .master-info { padding: 18px 20px 22px; }
+    .master-info h3 { font-size: 17px; margin-bottom: 4px; }
+    .master-info p { color: var(--muted); font-size: 13px; }
+
+    /* Reviews */
+    .reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+    .review {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px;
+    }
+    .review p { color: #d6d6d6; font-size: 15px; margin-bottom: 18px; }
+    .review strong { color: var(--accent); font-size: 14px; }
+
+    /* Contact / form */
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    .contact-info p { color: var(--muted); margin-bottom: 14px; }
+    .contact-info a { color: var(--text); border-bottom: 1px solid var(--accent); }
+    .contact-list { display: grid; gap: 12px; margin-top: 26px; }
+    .contact-item { display: flex; gap: 12px; align-items: flex-start; color: var(--muted); font-size: 14px; }
+    .contact-item strong { color: var(--text); display: block; font-size: 14px; }
+
+    .form {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+    .form h3 { font-size: 22px; margin-bottom: 6px; }
+    .form > p { color: var(--muted); font-size: 14px; margin-bottom: 22px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-grid .full { grid-column: 1 / -1; }
+    .field label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 7px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+    }
+    .field input, .field select {
+      width: 100%;
+      background: #121212;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      padding: 12px 14px;
+      outline: none;
+      transition: 0.2s ease;
+    }
+    .field input:focus, .field select:focus { border-color: var(--accent); }
+    .form .btn { width: 100%; margin-top: 18px; }
+    .form-note { color: #777; font-size: 12px; margin-top: 14px; text-align: center; }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 30px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .footer-inner { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+    @media (max-width: 820px) {
+      .nav { display: none; }
+      .hero { min-height: 78vh; }
+      .hero-content { padding: 80px 0; }
+      .contact-wrap { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      .section { padding: 54px 0; }
+      .header-inner { min-height: 64px; }
+      .header .btn { padding: 10px 14px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-grid .full { grid-column: auto; }
+      .form { padding: 22px; }
+      .master img { height: 260px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">ТОП<span>ОР</span></a>
+      <nav class="nav">
+        <a href="#services">Услуги</a>
+        <a href="#advantages">Почему мы</a>
+        <a href="#masters">Мастера</a>
+        <a href="#reviews">Отзывы</a>
+        <a href="#contact">Контакты</a>
+      </nav>
+      <a href="#contact" class="btn">Записаться</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <span class="eyebrow">Мужской барбершоп в Москве</span>
+        <h1>Стрижка, которая держит форму</h1>
+        <p>Опытные барберы, премиальная косметика и онлайн-запись 24/7. Приходи за своим стилем — без суеты и лишних разговоров.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn">Записаться онлайн</a>
+          <a href="#services" class="btn btn-outline">Услуги и цены</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="container">
+      <h2 class="section-title">Услуги и цены</h2>
+      <p class="section-subtitle">Чёткий прайс без скрытых доплат. В стоимость входит консультация и укладка.</p>
+      <div class="cards">
+        <div class="card service-card">
+          <h3>Мужская стрижка</h3>
+          <p>Классика, фейд или текстурная стрижка под твой тип волос.</p>
+          <div class="price">2 000 ₽</div>
+        </div>
+        <div class="card service-card">
+          <h3>Стрижка бороды</h3>
+          <p>Форма, контуры и уход. Подберём форму под овал лица.</p>
+          <div class="price">1 500 ₽</div>
+        </div>
+        <div class="card service-card">
+          <h3>Бритьё опасной бритвой</h3>
+          <p>Гладкое бритьё с горячим полотенцем и уходом после.</p>
+          <div class="price">2 500 ₽</div>
+        </div>
+        <div class="card service-card">
+          <h3>Комплекс: стрижка + борода</h3>
+          <p>Полный образ за один визит. Самый популярный вариант.</p>
+          <div class="price">3 000 ₽</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="advantages">
+    <div class="container">
+      <h2 class="section-title">Почему мы</h2>
+      <p class="section-subtitle">Не просто стрижём — помогаем выглядеть уверенно каждый день.</p>
+      <div class="advantages">
+        <div class="advantage">
+          <div class="advantage-icon">✂️</div>
+          <h3>Опытные барберы</h3>
+          <p>Мастера с опытом от 5 лет. Постоянно учатся и следят за трендами.</p>
+        </div>
+        <div class="advantage">
+          <div class="advantage-icon">⏱️</div>
+          <h3>Онлайн-запись 24/7</h3>
+          <p>Запись без звонков. Выбери услугу, мастера и удобное время.</p>
+        </div>
+        <div class="advantage">
+          <div class="advantage-icon">🧴</div>
+          <h3>Премиальная косметика</h3>
+          <p>Работаем на профессиональных средствах для волос и кожи.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="masters">
+    <div class="container">
+      <h2 class="section-title">Мастера</h2>
+      <p class="section-subtitle">Выбери своего барбера — или доверься администратору.</p>
+      <div class="masters">
+        <article class="master">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=700&q=80" alt="Барбер Алексей" />
+          <div class="master-info">
+            <h3>Алексей</h3>
+            <p>Классика, фейд, работа с бородой</p>
+          </div>
+        </article>
+        <article class="master">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=700&q=80" alt="Барбер Дмитрий" />
+          <div class="master-info">
+            <h3>Дмитрий</h3>
+            <p>Текстурные стрижки, укладка</p>
+          </div>
+        </article>
+        <article class="master">
+          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=700&q=80" alt="Барбер Михаил" />
+          <div class="master-info">
+            <h3>Михаил</h3>
+            <p>Опасная бритва, королевское бритьё</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="reviews">
+    <div class="container">
+      <h2 class="section-title">Отзывы</h2>
+      <p class="section-subtitle">Реальные впечатления клиентов — без редактуры.</p>
+      <div class="reviews">
+        <div class="review">
+          <p>«Записался онлайн за 2 минуты. Пришёл — не ждал. Стрижка чёткая, через месяц всё ещё держит форму. Теперь только сюда.»</p>
+          <strong>Артём, 29 лет</strong>
+        </div>
+        <div class="review">
+          <p>«Впервые брился опасной бритвой. Барбер всё объяснил, было комфортно. Кожа после — идеальная. Рекомендую.»</p>
+          <strong>Илья, 34 года</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="contact-wrap">
+        <div class="contact-info">
+          <h2 class="section-title">Контакты и запись</h2>
+          <p>Москва, ул. Примерная, 12. Работаем ежедневно с 10:00 до 22:00.</p>
+          <p>Телефон: <a href="tel:+79990000000">+7 (999) 000-00-00</a></p>
+          <div class="contact-list">
+            <div class="contact-item">
+              <span>📍</span>
+              <div><strong>Адрес</strong>Москва, ул. Примерная, 12</div>
+            </div>
+            <div class="contact-item">
+              <span>🕒</span>
+              <div><strong>Часы работы</strong>Ежедневно, 10:00–22:00</div>
+            </div>
+            <div class="contact-item">
+              <span>📱</span>
+              <div><strong>Соцсети</strong>Telegram / VK / WhatsApp</div>
+            </div>
+          </div>
+        </div>
+
+        <form class="form" id="bookingForm">
+          <h3>Записаться онлайн</h3>
+          <p>Оставь заявку — администратор подтвердит запись в течение 15 минут.</p>
+          <div class="form-grid">
+            <div class="field">
+              <label for="name">Имя</label>
+              <input id="name" name="name" type="text" placeholder="Как к тебе обращаться" required />
+            </div>
+            <div class="field">
+              <label for="phone">Телефон</label>
+              <input id="phone" name="phone" type="tel" placeholder="+7 (___) ___-__-__" required />
+            </div>
+            <div class="field">
+              <label for="service">Услуга</label>
+              <select id="service" name="service">
+                <option>Мужская стрижка — 2 000 ₽</option>
+                <option>Стрижка бороды — 1 500 ₽</option>
+                <option>Бритьё опасной бритвой — 2 500 ₽</option>
+                <option>Комплекс: стрижка + борода — 3 000 ₽</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="master">Мастер</label>
+              <select id="master" name="master">
+                <option>Любой</option>
+                <option>Алексей</option>
+                <option>Дмитрий</option>
+                <option>Михаил</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="date">Дата</label>
+              <input id="date" name="date" type="date" required />
+            </div>
+            <div class="field">
+              <label for="time">Время</label>
+              <input id="time" name="time" type="time" required />
+            </div>
+            <div class="field full">
+              <button class="btn" type="submit">Записаться</button>
+            </div>
+          </div>
+          <p class="form-note">Это демо-форма. В реальном проекте заявка будет уходить в Telegram или CRM.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© 2026 Барбершоп «Топор». Демо-сайт.</span>
+      <span>Политика конфиденциальности</span>
+    </div>
+  </footer>
+
+  <script>
+    // Демо-форма: чтобы страница не перезагружалась.
+    // В реальном проекте здесь будет отправка в Telegram-бот, CRM или на почту.
+    document.getElementById('bookingForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      alert('Это демо-форма. Здесь будет отправка заявки администратору.');
+    });
+  </script>
+</body>
+</html>
