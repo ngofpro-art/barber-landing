@@ -476,7 +476,9 @@
             </div>
             <div class="field">
               <label for="time">Время</label>
-              <input id="time" name="time" type="time" required />
+              <select id="time" name="time" required>
+                <option value="" disabled selected>Выберите время</option>
+              </select>
             </div>
             <div class="field full">
               <button class="btn" type="submit">Записаться</button>
@@ -496,11 +498,61 @@
   </footer>
 
   <script>
-    // Демо-форма: чтобы страница не перезагружалась.
-    // В реальном проекте здесь будет отправка в Telegram-бот, CRM или на почту.
+    // Список времени, которое "занято" по умолчанию (для демо)
+    let bookedTimes = ["10:20", "14:00", "18:30"]; 
+
+    const timeSelect = document.getElementById('time');
+    
+    // Функция создания списка времени с 10:00 до 21:50 (шаг 10 минут)
+    function generateTimes() {
+      timeSelect.innerHTML = '<option value="" disabled selected>Выберите время</option>';
+      
+      for (let h = 10; h <= 21; h++) {
+        for (let m = 0; m < 60; m += 10) {
+          let hh = h.toString().padStart(2, '0');
+          let mm = m.toString().padStart(2, '0');
+          let timeStr = `${hh}:${mm}`;
+          
+          let option = document.createElement('option');
+          option.value = timeStr;
+          option.textContent = timeStr;
+          
+          // Если время в списке занятых
+          if (bookedTimes.includes(timeStr)) {
+            option.disabled = true;
+            option.textContent += ' — Занято';
+            option.style.color = '#666'; 
+          }
+          
+          timeSelect.appendChild(option);
+        }
+      }
+    }
+
+    // Запускаем генерацию списка
+    generateTimes();
+
+    // Обработка нажатия на кнопку "Записаться"
     document.getElementById('bookingForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      alert('Это демо-форма. Здесь будет отправка заявки администратору.');
+      e.preventDefault(); // Останавливаем перезагрузку страницы
+      
+      let selectedTime = timeSelect.value;
+      let selectedDate = document.getElementById('date').value;
+      
+      if (!selectedTime) {
+        alert('Пожалуйста, выберите время.');
+        return;
+      }
+
+      // Добавляем выбранное время в "занятые"
+      if (!bookedTimes.includes(selectedTime)) {
+        bookedTimes.push(selectedTime); 
+        
+        generateTimes(); // Перерисовываем список, чтобы время стало недоступным
+        timeSelect.value = ''; // Сбрасываем выбор
+        
+        alert(`Успешно! Вы записаны на ${selectedDate} в ${selectedTime}.\n(Это демо: время заблокировано).`);
+      }
     });
   </script>
 </body>
